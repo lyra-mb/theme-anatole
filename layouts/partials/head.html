@@ -27,7 +27,7 @@
 
   {{- end -}}
 
-  <link rel="me" href="https://micro.blog/{{ .Site.Author.username }}" />
+  <link rel="me" href="https://micro.blog/{{ .Site.Params.author.username }}" />
   {{ with .Site.Params.twitter_username }}
     <link rel="me" href="https://twitter.com/{{ . }}" />
   {{ end }}
@@ -40,7 +40,7 @@
   <!-- CSS -->
   {{ if eq .Site.Language.LanguageDirection "rtl" }}
     {{ $sassTemplate := resources.Get "scss/anatole.rtl.scss" }}
-    {{ $style := $sassTemplate | resources.ExecuteAsTemplate "scss/main.rtl.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+    {{ $style := $sassTemplate | resources.ExecuteAsTemplate "scss/main.rtl.scss" . | css.Sass | minify | fingerprint }}
     <link
       rel="stylesheet"
       href="{{ $style.RelPermalink }}"
@@ -51,7 +51,7 @@
 
   {{ else }}
     {{ $sassTemplate := resources.Get "scss/anatole.scss" }}
-    {{ $style := $sassTemplate | resources.ExecuteAsTemplate "scss/main.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+    {{ $style := $sassTemplate | resources.ExecuteAsTemplate "scss/main.scss" . | css.Sass | minify | fingerprint }}
     <link
       rel="stylesheet"
       href="{{ $style.RelPermalink }}"
@@ -154,7 +154,7 @@
   {{ end }}
 
   <!-- Favicons -->
-  {{ $defaultPath := printf "/favicon.png" | printf "%s%s" $.Site.Author.username | printf "https://micro.blog/%s" | printf "%s" }}
+  {{ $defaultPath := printf "/favicon.png" | printf "%s%s" $.Site.Params.author.username | printf "https://micro.blog/%s" | printf "%s" }}
   <link rel="shortcut icon" href="{{ .Site.Params.favicon | default $defaultPath }}" type="image/x-icon" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ .Site.Params.favicon | default $defaultPath }}" />
   <link rel="icon" type="image/png" sizes="32x32" href="{{ .Site.Params.favicon | relURL }}favicon-32x32.png" />

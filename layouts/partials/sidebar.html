@@ -11,7 +11,7 @@
     <div class="sidebar__introduction">
       <img
         class="sidebar__introduction-profileimage"
-        src="{{ .Site.Author.avatar | relURL }}"
+        src="{{ .Site.Params.author.avatar | relURL }}"
         alt="profile picture"
       />
       {{ if .IsHome }}
